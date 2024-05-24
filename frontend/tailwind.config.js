@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    colors: {
+      primary: '#EF233C',
+      white: '#ffffff'
+    },
+    fontFamily: {
+      logo: ['Rammetto One', 'sans-serif']
+    },
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 }
-

@@ -1,9 +1,9 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+<script setup>
+import TopNavigation from '../components/TopNavigation.vue'
+import TheFooter from '../components/TheFooter.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <TopNavigation></TopNavigation>
+  <TheFooter></TheFooter>
 </template>
