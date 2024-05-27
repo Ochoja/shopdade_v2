@@ -8,6 +8,6 @@ import { RouterView } from 'vue-router'
 
 <style lang="postcss">
 .grid-width {
-  @apply w-[95%] ml-auto mr-auto;
+  @apply w-[95%] mx-auto;
 }
 </style>

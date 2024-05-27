@@ -9,7 +9,11 @@ export default {
     fontFamily: {
       logo: ['Rammetto One', 'sans-serif']
     },
-    extend: {}
+    extend: {
+      backgroundImage: {
+        hero: "url('')"
+      }
+    }
   },
   plugins: []
 }
