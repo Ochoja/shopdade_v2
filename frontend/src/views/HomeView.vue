@@ -5,5 +5,6 @@ import TheFooter from '../components/TheFooter.vue'
 
 <template>
   <TopNavigation></TopNavigation>
+  <section></section>
   <TheFooter></TheFooter>
 </template>
