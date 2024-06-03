@@ -46,3 +46,6 @@ def find_by_category(category: str, query: str) -> list[dict]:
             {"description": {"$regex": regex_pattern, "$options": "i"}}
         ]
     }
+
+    result = mongo.db.products.find_many(query)
+    return jsonify(result)
