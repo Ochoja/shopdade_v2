@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.product import Product
 from api.extensions import mongo
+import re
 
 
 product = Blueprint("product", __name__)
@@ -16,9 +17,32 @@ def add_item():
     return f"Item id:{id}"
 
 
-@product.route("/find/",)
-def find_item(name):
+@product.route("/search/<query>/",)
+def find_product(query: str) -> list[dict]:
     """Find one or more products"""
-    name = request.args.get("name")
-    result = mongo.db.products.find_many({"name": name})
+    query = request.args.get("query")
+    words = query.split()
+    regex_pattern = "|".join([re.escape(word) for word in words])
+    query = {
+        "$or": [
+            {"name": {"$regex": regex_pattern}, "$options": "i"},
+            {"description": {"$regex": regex_pattern, "$options": "i"}}
+        ]
+    }
+    result = mongo.db.products.find_many(query)
     return jsonify(result)
+
+
+@product.route("/search/<category>/<query>/")
+def find_by_category(category: str, query: str) -> list[dict]:
+    """Find products in a category"""
+    category = request.args.get("category")
+    query = request.args.get("query")
+    words = query.split()
+    regex_pattern = "|".join([re.escape(word) for word in words])
+    query = {
+        "$or": [
+            {"name": {"$regex": regex_pattern}, "$options": "i"},
+            {"description": {"$regex": regex_pattern, "$options": "i"}}
+        ]
+    }
