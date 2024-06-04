@@ -1,15 +1,34 @@
 <script setup>
+import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
+
+const showCategory = ref(false)
+const category = ['Suit', 'Footwear', 'Accesories', 'Tops', 'Bottoms', 'Jacket']
 </script>
 
 <template>
   <nav class="flex grid-width items-center justify-between py-2">
     <div class="font-logo text-primary text-2xl">shopDADE</div>
     <div
-      class="flex border-[1px] border-[#F34213] p-[0.4rem] rounded-full items-center font-bold text-sm"
+      class="flex border-[1px] border-[#F34213] p-[0.4rem] rounded-full items-center font-bold text-sm relative"
     >
-      <div class="pl-3 pr-3 flex items-center gap-1">
+      <div
+        @click="showCategory = !showCategory"
+        class="pl-3 pr-3 flex items-center gap-1 cursor-pointer"
+      >
         All Category <Icon icon="raphael:arrowdown"></Icon>
+      </div>
+      <div
+        v-show="showCategory"
+        class="absolute top-12 bg-white rounded-md border-primary border-[1.5px]"
+      >
+        <div
+          v-for="(item, index) in category"
+          :key="index"
+          class="hover:bg-primary px-4 py-1 text-center rounded-md cursor-pointer hover:text-white"
+        >
+          {{ item }}
+        </div>
       </div>
       <input
         type="search"
