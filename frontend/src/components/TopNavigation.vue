@@ -3,7 +3,22 @@ import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 
 const showCategory = ref(false)
-const category = ['Suit', 'Footwear', 'Accesories', 'Tops', 'Bottoms', 'Jacket']
+const selectedCategory = ref('All Category')
+const category = ref([
+  'All Category',
+  'Suit',
+  'Footwear',
+  'Accesories',
+  'Tops',
+  'Bottoms',
+  'Jacket'
+])
+const categoryRef = ref([])
+
+function changeCategory(index) {
+  selectedCategory.value = categoryRef.value[index].innerHTML
+  showCategory.value = !showCategory.value
+}
 </script>
 
 <template>
@@ -14,15 +29,17 @@ const category = ['Suit', 'Footwear', 'Accesories', 'Tops', 'Bottoms', 'Jacket']
     >
       <div
         @click="showCategory = !showCategory"
-        class="pl-3 pr-3 flex items-center gap-1 cursor-pointer"
+        class="pl-3 pr-3 flex items-center gap-1 cursor-pointer min-w-26"
       >
-        All Category <Icon icon="raphael:arrowdown"></Icon>
+        {{ selectedCategory }} <Icon icon="raphael:arrowdown"></Icon>
       </div>
       <div
         v-show="showCategory"
         class="absolute top-12 bg-white rounded-md border-primary border-[1.5px]"
       >
         <div
+          @click="changeCategory(index)"
+          ref="categoryRef"
           v-for="(item, index) in category"
           :key="index"
           class="hover:bg-primary px-4 py-1 text-center rounded-md cursor-pointer hover:text-white"

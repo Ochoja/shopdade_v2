@@ -44,7 +44,8 @@ def find_by_category(category: str, query: str) -> list[dict]:
         "$or": [
             {"name": {"$regex": regex_pattern}, "$options": "i"},
             {"description": {"$regex": regex_pattern, "$options": "i"}}
-        ]
+        ],
+        "category": category
     }
 
     result = mongo.db.products.find_many(query)
