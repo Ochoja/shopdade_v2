@@ -1,6 +1,6 @@
 class Product:
-    def __init__(self, name: str, description: str, price: str, category: str,
-                 sizes: list[int], uom: str, images: list[str]) -> None:
+    def __init__(self, name: str, description: str, price: float, category: str,
+                 sizes: list[int], uom: str, images: list[str], quantity: int) -> None:
         self.name = name
         self.description = description
         self.price = price
@@ -8,6 +8,7 @@ class Product:
         self.sizes = sizes
         self.uom = uom
         self.images = images
+        self.quantity = quantity
 
     def to_dict(self):
         return {
@@ -17,7 +18,8 @@ class Product:
             "category": self.category,
             "sizes": self.sizes,
             "uom": self.uom,
-            "images": self.images
+            "images": self.images,
+            "quantity": self.quantity
         }
 
     @staticmethod
@@ -29,5 +31,6 @@ class Product:
             item.get("category"),
             item.get("sizes"),
             item.get("uom"),
-            item.get("images")
+            item.get("images"),
+            item.get("quantity")
         )
