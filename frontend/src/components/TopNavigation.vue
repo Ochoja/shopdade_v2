@@ -22,10 +22,10 @@ function changeCategory(index) {
 </script>
 
 <template>
-  <nav class="flex grid-width items-center justify-between py-2">
+  <nav class="flex grid-width items-center justify-between py-2 mb-4">
     <div class="font-logo text-primary text-2xl">shopDADE</div>
     <div
-      class="flex border-[1px] border-[#F34213] p-[0.4rem] rounded-full items-center font-bold text-sm relative"
+      class="flex border-[1px] border-primary p-[0.4rem] rounded-full items-center font-bold text-sm relative"
     >
       <div
         @click="showCategory = !showCategory"

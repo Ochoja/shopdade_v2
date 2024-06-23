@@ -11,7 +11,10 @@ export default {
     },
     extend: {
       backgroundImage: {
-        hero: "url('')"
+        hero: "url('./src/assets/images/hero.jpg')"
+      },
+      backgroundSize: {
+        '110%': '90%'
       }
     }
   },
