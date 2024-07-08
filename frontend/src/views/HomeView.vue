@@ -1,5 +1,6 @@
 <script setup>
-import Button from '@/components/TheButton.vue'
+import Button from '../components/TheButton.vue'
+import Card from '../components/ProductCard.vue'
 </script>
 
 <template>
@@ -26,7 +27,14 @@ import Button from '@/components/TheButton.vue'
         </p>
       </div>
 
-      <div></div>
+      <div class="product-grid">
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
+      </div>
     </section>
   </main>
 </template>

@@ -12,6 +12,9 @@ export default {
     extend: {
       backgroundImage: {
         hero: "url('./src/assets/images/hero.jpg')"
+      },
+      gridTemplateColumns: {
+        4: 'repeat(auto-fit, minmax(200px, 1fr))'
       }
     }
   },

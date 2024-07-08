@@ -18,4 +18,8 @@ h2 {
 .grid-width {
   @apply w-[95%] mx-auto;
 }
+
+.product-grid {
+  @apply grid grid-cols-4 gap-4;
+}
 </style>

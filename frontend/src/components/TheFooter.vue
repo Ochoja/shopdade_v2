@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <footer class="pt-4 pb-1 bg-primary text-white">
+  <footer class="pt-8 pb-1 bg-primary text-white">
     <div class="grid-width flex justify-between flex-wrap gap-8 mb-16">
       <div>
         <div class="text-2xl font-logo">shopDADE</div>
