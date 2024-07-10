@@ -5,7 +5,7 @@ import Card from '../components/ProductCard.vue'
 
 <template>
   <main class="grid-width">
-    <section class="bg-hero bg-cover bg-right py-[8rem] px-8 rounded-[10px] mb-14">
+    <section class="bg-hero bg-cover bg-right py-[8rem] px-8 rounded-[10px] mb-16">
       <div class="max-w-[50%]">
         <p class="text-xl mb-3 text-white">
           Elevate your everyday style effortlessly with
@@ -41,6 +41,10 @@ import Card from '../components/ProductCard.vue'
       <div class="text-center mt-8">
         <Button size="wide">See All</Button>
       </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-center">Our Collections</h2>
     </section>
   </main>
 </template>
