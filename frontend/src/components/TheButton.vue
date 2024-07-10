@@ -1,7 +1,10 @@
 <script setup>
+import { Icon } from '@iconify/vue/dist/iconify.js'
+
 const props = defineProps({
   size: String,
-  type: String
+  type: String,
+  icon: String
 })
 
 const btnClass = () => {
@@ -18,18 +21,30 @@ const btnClass = () => {
 </script>
 
 <template>
-  <button :class="btnClass"></button>
-  <button class="bg-primary text-white rounded-3xl py-2 px-6">
-    <slot>Button</slot>
+  <button :class="btnClass()">
+    <Icon v-if="props.icon" :icon="props.icon"></Icon>
+    <slot>Buton</slot>
   </button>
 </template>
 
 <style lang="postcss">
+button {
+  @apply rounded-full px-4 py-2;
+}
+
 .primary {
-  @apply bg-primary text-white rounded-3xl;
+  @apply bg-primary text-white;
+}
+
+.secondary {
+  @apply text-primary bg-white border-primary border-2;
 }
 
 .large {
-  @apply text-lg;
+  @apply text-2xl py-3 px-8;
+}
+
+.wide {
+  @apply font-semibold px-12;
 }
 </style>

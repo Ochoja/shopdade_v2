@@ -20,6 +20,6 @@ h2 {
 }
 
 .product-grid {
-  @apply grid grid-cols-3 gap-4  md:grid-cols-4 md:gap-x-6 md:gap-y-8;
+  @apply grid grid-cols-3 gap-x-4 gap-y-6  md:grid-cols-4 md:gap-x-6 md:gap-y-8 lg:grid-cols-5;
 }
 </style>

@@ -34,6 +34,12 @@ import Card from '../components/ProductCard.vue'
         <Card></Card>
         <Card></Card>
         <Card></Card>
+        <Card></Card>
+        <Card></Card>
+      </div>
+
+      <div class="text-center mt-8">
+        <Button size="wide">See All</Button>
       </div>
     </section>
   </main>
