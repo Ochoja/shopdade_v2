@@ -14,7 +14,8 @@ export default {
         hero: "url('./src/assets/images/hero.jpg')"
       },
       gridTemplateColumns: {
-        4: 'repeat(auto-fit, minmax(200px, 1fr))'
+        4: 'repeat(auto-fit, minmax(200px, 1fr))',
+        3: 'repeat(auto-fit, minmax(160px, 1fr))'
       }
     }
   },

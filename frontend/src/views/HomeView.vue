@@ -19,9 +19,9 @@ import Card from '../components/ProductCard.vue'
     </section>
 
     <section>
-      <div class="text-center">
+      <div class="text-center mb-4">
         <h2>New Arrivals</h2>
-        <p class="max-w-[60%] mx-auto">
+        <p class="max-w-[95%] sm:max-w-[90%] md:max-w-[60%] mx-auto">
           Introducing our latest arrivals, meticulously curated to elevate your wardrobe with fresh
           sophistication and style
         </p>
