@@ -1,6 +1,7 @@
 <script setup>
 import Button from '../components/TheButton.vue'
 import Card from '../components/ProductCard.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -43,8 +44,23 @@ import Card from '../components/ProductCard.vue'
       </div>
     </section>
 
-    <section class="mt-16">
-      <h2 class="text-center">Our Collections</h2>
+    <section class="mt-[5rem] mb-[6rem]">
+      <h2 class="text-center mb-6">Our Collections</h2>
+
+      <div class="grid grid-cols-category gap-2 h-[85vh]">
+        <RouterLink class="row-span-3 bg-footwear category">Footwear</RouterLink>
+        <RouterLink class="row-span-5 bg-suit category">Suit</RouterLink>
+        <RouterLink class="row-span-3 bg-accesory category">Accesories</RouterLink>
+        <RouterLink class="row-span-5 bg-top category">Tops</RouterLink>
+        <RouterLink class="row-span-5 bg-bottom category">Bottom</RouterLink>
+        <RouterLink class="row-span-3 bg-jacket category">Jacket</RouterLink>
+      </div>
     </section>
   </main>
 </template>
+
+<style lang="postcss" scoped>
+.category {
+  @apply bg-center bg-cover flex justify-center items-center text-white rounded-md font-semibold text-2xl;
+}
+</style>
