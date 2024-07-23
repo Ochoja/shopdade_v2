@@ -1,11 +1,26 @@
 <script setup>
+import { useRoute } from 'vue-router'
 import { RouterView } from 'vue-router'
 import TopNavigation from './components/TopNavigation.vue'
 import TheFooter from './components/TheFooter.vue'
+import { computed, ref, watch } from 'vue'
+
+const route = useRoute()
+const path = computed(() => route.path)
+
+// show Navigation bar depending on path
+const showNav = ref(true)
+watch(path, () => {
+  if (path.value.includes('auth')) {
+    showNav.value = false
+  } else {
+    showNav.value = true
+  }
+})
 </script>
 
 <template>
-  <TopNavigation></TopNavigation>
+  <TopNavigation v-show="showNav"></TopNavigation>
   <RouterView></RouterView>
   <TheFooter></TheFooter>
 </template>

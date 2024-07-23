@@ -20,13 +20,15 @@ export default {
         jacket:
           "url('https://ik.imagekit.io/Ochoja01/shopDADE/jacket.png?updatedAt=1711169406932')",
         accesory:
-          "url('https://ik.imagekit.io/Ochoja01/shopDADE/accesories.png?updatedAt=1711169406591')"
+          "url('https://ik.imagekit.io/Ochoja01/shopDADE/accesories.png?updatedAt=1711169406591')",
+        auth: "url('https://ik.imagekit.io/Ochoja01/shopDADE/login.png?updatedAt=1711651840332')"
       },
       gridTemplateColumns: {
         5: 'repeat(auto-fit, minmax(230px, 1fr))',
         4: 'repeat(auto-fit, minmax(200px, 1fr))',
         3: 'repeat(auto-fit, minmax(160px, 1fr))',
-        category: 'repeat(3, 1fr)'
+        category: 'repeat(3, 1fr)',
+        auth: '1.2fr 1fr'
       }
     }
   },

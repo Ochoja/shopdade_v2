@@ -48,12 +48,12 @@ import { RouterLink } from 'vue-router'
       <h2 class="text-center mb-6">Our Collections</h2>
 
       <div class="grid grid-cols-category gap-2 h-[85vh]">
-        <RouterLink class="row-span-3 bg-footwear category">Footwear</RouterLink>
-        <RouterLink class="row-span-5 bg-suit category">Suit</RouterLink>
-        <RouterLink class="row-span-3 bg-accesory category">Accesories</RouterLink>
-        <RouterLink class="row-span-5 bg-top category">Tops</RouterLink>
-        <RouterLink class="row-span-5 bg-bottom category">Bottom</RouterLink>
-        <RouterLink class="row-span-3 bg-jacket category">Jacket</RouterLink>
+        <RouterLink to="/" class="row-span-3 bg-footwear category">Footwear</RouterLink>
+        <RouterLink to="/" class="row-span-5 bg-suit category">Suit</RouterLink>
+        <RouterLink to="/" class="row-span-3 bg-accesory category">Accesories</RouterLink>
+        <RouterLink to="/" class="row-span-5 bg-top category">Tops</RouterLink>
+        <RouterLink to="/" class="row-span-5 bg-bottom category">Bottom</RouterLink>
+        <RouterLink to="/" class="row-span-3 bg-jacket category">Jacket</RouterLink>
       </div>
     </section>
   </main>
