@@ -41,7 +41,7 @@ button {
 }
 
 .large {
-  @apply text-2xl py-3 px-8;
+  @apply text-2xl py-4 px-8;
 }
 
 .wide {
