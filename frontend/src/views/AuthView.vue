@@ -1,6 +1,33 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import Button from '@/components/TheButton.vue'
+import { computed, onMounted, ref, watch } from 'vue'
+
+const route = useRoute()
+const current_path = computed(() => route.path)
+const isLogin = ref(true)
+const isSignUp = ref(false)
+
+// Change Login and signup form depending on route
+watch(current_path, () => {
+  if (current_path.value.includes('/auth/sign-up')) {
+    isSignUp.value = true
+    isLogin.value = false
+  } else if (current_path.value.includes('/auth/login')) {
+    isLogin.value = true
+    isSignUp.value = false
+  }
+})
+
+onMounted(() => {
+  if (current_path.value.includes('/auth/sign-up')) {
+    isSignUp.value = true
+    isLogin.value = false
+  } else if (current_path.value.includes('/auth/login')) {
+    isLogin.value = true
+    isSignUp.value = false
+  }
+})
 </script>
 
 <template>
@@ -10,7 +37,7 @@ import Button from '@/components/TheButton.vue'
         <RouterLink to="/" class="font-logo text-primary text-2xl">shopDADE</RouterLink>
       </div>
 
-      <form>
+      <form v-if="isLogin">
         <div class="form-title">
           <h2 class="font-semibold">Sign In</h2>
           <p class="font-light">Welcome Back! Please enter your details.</p>
@@ -38,15 +65,47 @@ import Button from '@/components/TheButton.vue'
         </p>
       </form>
 
-      <form></form>
+      <form v-if="isSignUp">
+        <div class="form-title">
+          <h2 class="font-semibold">Create an Account</h2>
+          <p class="font-light">Welcome Back! Please enter your details.</p>
+        </div>
+
+        <div>
+          <label for="name">Full Name*</label>
+          <input type="text" id="name" placeholder="John Doe" required />
+        </div>
+
+        <div>
+          <label for="email">Email*</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+        </div>
+
+        <div>
+          <label for="password">Password*</label>
+          <input type="password" id="password" placeholder="Enter your password" required />
+        </div>
+
+        <div>
+          <label for="retype_password">Retype Password*</label>
+          <input type="password" id="retype_password" placeholder="Enter your password" required />
+        </div>
+
+        <Button size="large" class="w-[100%] mt-5">Create Account</Button>
+        <p class="font-light mt-2 text-center text-[1.1rem]">
+          Already have an account?
+          <RouterLink to="/auth/login" class="font-bold text-primary">Sign In</RouterLink>
+        </p>
+      </form>
     </div>
-    <div class="bg-auth bg-center w-[110%] relative left-[-10%] z-[-5]"></div>
+
+    <div class="bg-auth bg-fixed bg-no-repeat bg-[100%] w-[103%] relative left-[-3%] z-[-5]"></div>
   </main>
 </template>
 
 <style lang="postcss" scoped>
 form {
-  @apply w-[60%] m-auto;
+  @apply w-[60%] m-auto mb-24;
 }
 
 .form-title {
