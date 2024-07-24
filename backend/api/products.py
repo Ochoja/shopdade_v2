@@ -24,11 +24,11 @@ def show_products() -> list[dict]:
     limit = request.args.get("limit")  # number of items to be displayed
 
     if limit and not offset:
-        results = mongo.db.products.find().limit(limit)
+        results = mongo.db.products.find().limit(int(limit))
         res = [result for result in results]
         return dumps(res)
     if offset and limit:
-        results = mongo.db.products.find().skip(offset).limit(limit)
+        results = mongo.db.products.find().skip(int(offset)).limit(int(limit))
         res = [result for result in results]
         return dumps(res)
     else:
@@ -50,7 +50,7 @@ def find_product(query: str) -> list[dict]:
         ]
     }
 
-    results = mongo.db.products.find(query).offset(offset).limit(
+    results = mongo.db.products.find(query).offset(int(offset)).limit(
         10) if offset else mongo.db.products.find(query).limit(10)
     res = [result for result in results]
 
@@ -72,7 +72,7 @@ def find_by_category(category: str, query: str) -> list[dict]:
     }
 
     results = mongo.db.products.find(query).limit(10).offset(
-        offset) if offset else mongo.db.products.find(query).limit(10)
+        int(offset)) if offset else mongo.db.products.find(query).limit(10)
     res = [result for result in results]
 
     return (dumps(res))
