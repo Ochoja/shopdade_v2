@@ -9,7 +9,8 @@ auth = Blueprint("auth", __name__)
 @auth.route("/sign_up/", methods=["POST"])
 def create_account():
     """Create user's account"""
-    pw_hash = request.form.get('password')
+    pw_hash = bcrypt.generate_password_hash(
+        request.form.get('password')).decode('utf-8')
 
     try:
         if mongo.db.users.find_one({"email": request.form.get('email')}):
