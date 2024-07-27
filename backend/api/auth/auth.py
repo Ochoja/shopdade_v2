@@ -22,4 +22,4 @@ def create_account():
     except Exception as e:
         return f"Error: {e}"
 
-    return jsonify(f"Account successfully created {inserted_id}")
+    return jsonify(f"Account created successfully {inserted_id}")
