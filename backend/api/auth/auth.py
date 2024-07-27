@@ -23,3 +23,16 @@ def create_account():
         return f"Error: {e}"
 
     return jsonify(f"Account created successfully {inserted_id}")
+
+
+@auth.route("/login/", methods=["POST"])
+def login():
+    """Login to user's account"""
+    try:
+        # check if user exists
+        if mongo.db.users.find_one({"email": request.form.get("email")}):
+            return "User exists"
+        else:
+            return "Account does not exist", 401
+    except Exception as e:
+        return f"Error: {e}"
