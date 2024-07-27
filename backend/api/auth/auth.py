@@ -1,6 +1,7 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from api.extensions import mongo
 from api.extensions import bcrypt
+from flask_jwt_extended import create_access_token
 
 
 auth = Blueprint("auth", __name__)
@@ -30,9 +31,18 @@ def login():
     """Login to user's account"""
     try:
         # check if user exists
-        if mongo.db.users.find_one({"email": request.form.get("email")}):
-            return "User exists"
+        user = mongo.db.users.find_one_or_404(
+            {"email": request.form.get("email")})
+        # Check if passwords match
+        check_pw = bcrypt.check_password_hash(user.get("password"), request.form.get(
+            "password"))
+
+        if check_pw:
+            access_token = create_access_token(identity=user.get("email"))
+            response = make_response("Login Successful")
+            response.set_cookie("access_token", access_token)
+            return response
         else:
-            return "Account does not exist", 401
+            return "Incorrect Email or Password", 401
     except Exception as e:
         return f"Error: {e}"
