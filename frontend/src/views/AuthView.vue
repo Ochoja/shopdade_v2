@@ -1,13 +1,28 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
 import Button from '@/components/TheButton.vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 
 const route = useRoute()
 const current_path = computed(() => route.path)
 const isLogin = ref(true)
 const isSignUp = ref(false)
 
+/* Sign Up Logic */
+const password = ref('')
+const confirm_password = ref('')
+const matching_pw = ref(true)
+
+watchEffect(() => {
+  if (password.value !== confirm_password.value) {
+    matching_pw.value = false
+  } else {
+    matching_pw.value = true
+  }
+})
+/* End Sign Up Logic */
+
+/* Route and Form Logic */
 // Change Login and signup form depending on route
 watch(current_path, () => {
   if (current_path.value.includes('/auth/sign-up')) {
@@ -19,6 +34,7 @@ watch(current_path, () => {
   }
 })
 
+// Put right form (login or signup) when component is mounted
 onMounted(() => {
   if (current_path.value.includes('/auth/sign-up')) {
     isSignUp.value = true
@@ -28,10 +44,11 @@ onMounted(() => {
     isSignUp.value = false
   }
 })
+/* End Route and Form Logic */
 </script>
 
 <template>
-  <main class="grid grid-cols-auth min-h-[98vh]">
+  <main class="grid md:grid-cols-auth min-h-[98vh]">
     <div class="md:rounded-3xl bg-white pt-6">
       <div class="text-center mb-14">
         <RouterLink to="/" class="font-logo text-primary text-2xl">shopDADE</RouterLink>
@@ -83,12 +100,27 @@ onMounted(() => {
 
         <div>
           <label for="password">Password*</label>
-          <input type="password" id="password" placeholder="Enter your password" required />
+          <input
+            v-model="password"
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
         </div>
 
         <div>
           <label for="retype_password">Retype Password*</label>
-          <input type="password" id="retype_password" placeholder="Enter your password" required />
+          <input
+            v-model="confirm_password"
+            type="password"
+            id="retype_password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <div v-show="!matching_pw" class="relative top-[-14px] font-semibold text-sm text-primary">
+          Passwords do not match
         </div>
 
         <Button size="large" class="w-[100%] mt-5">Create Account</Button>
@@ -99,7 +131,9 @@ onMounted(() => {
       </form>
     </div>
 
-    <div class="bg-auth bg-fixed bg-no-repeat bg-[100%] w-[103%] relative left-[-3%] z-[-5]"></div>
+    <div
+      class="hidden md:block bg-auth bg-fixed bg-no-repeat bg-[100%] w-[103%] relative left-[-3%] z-[-5]"
+    ></div>
   </main>
 </template>
 
