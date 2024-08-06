@@ -3,6 +3,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import Button from '@/components/TheButton.vue'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import axios from 'axios'
+import { Icon } from '@iconify/vue/dist/iconify.js'
 
 const route = useRoute()
 const current_path = computed(() => route.path)
@@ -16,6 +17,7 @@ const confirm_password = ref('')
 const full_name = ref('')
 const email = ref('')
 const matching_pw = ref(true)
+const signUpError = ref('')
 
 watchEffect(() => {
   if (password.value !== confirm_password.value) {
@@ -28,16 +30,18 @@ watchEffect(() => {
 async function signUp() {
   if (matching_pw.value) {
     try {
-      isLoading.value = true
+      isLoading.value = true // show loading icon
       const response = await axios.post('http://127.0.0.1:5000/api/sign_up/', {
         full_name: full_name.value,
         email: email.value,
         password: password.value
       })
-      isLoading.value = false
+      isLoading.value = false // remove loading icon
       console.log(response.data)
     } catch (error) {
-      console.log(error)
+      isLoading.value = false // remove loading icon
+      console.error(error)
+      signUpError.value = error.response.data // Set error message to data returned by server
     }
   }
 }
@@ -71,7 +75,7 @@ onMounted(() => {
 <template>
   <main class="grid md:grid-cols-auth min-h-[80vh]">
     <div class="md:rounded-3xl bg-white">
-      <div class="text-center mb-14 pt-6">
+      <div class="text-center mb-10 pt-6">
         <RouterLink to="/" class="font-logo text-primary text-2xl">shopDADE</RouterLink>
       </div>
 
@@ -145,9 +149,10 @@ onMounted(() => {
         </div>
 
         <Button size="large" class="w-[100%] mt-5">
-          <span v-if="isLoading">Loading....</span>
+          <span v-if="isLoading" class="2xl"><Icon icon="eos-icons:bubble-loading" /></span>
           <span v-else>Create Account</span>
         </Button>
+        <p class="font-bold mt-2 text-center text-[1.1rem] text-primary">{{ signUpError }}</p>
         <p class="font-light mt-2 text-center text-[1.1rem]">
           Already have an account?
           <RouterLink to="/auth/login" class="font-bold text-primary">Sign In</RouterLink>
@@ -155,6 +160,7 @@ onMounted(() => {
       </form>
     </div>
 
+    <!-- Image on the right -->
     <div
       class="hidden md:block bg-auth bg-fixed bg-no-repeat bg-[100%] w-[103%] relative left-[-3%] z-[-5]"
     ></div>

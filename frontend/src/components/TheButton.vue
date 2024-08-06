@@ -23,13 +23,13 @@ const btnClass = () => {
 <template>
   <button :class="btnClass()">
     <Icon v-if="props.icon" :icon="props.icon"></Icon>
-    <slot>Buton</slot>
+    <slot></slot>
   </button>
 </template>
 
 <style lang="postcss">
 button {
-  @apply rounded-full px-4 py-2;
+  @apply rounded-full px-4 py-2 flex justify-center;
 }
 
 .primary {
