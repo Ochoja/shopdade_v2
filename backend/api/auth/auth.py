@@ -11,13 +11,13 @@ auth = Blueprint("auth", __name__)
 def create_account():
     """Create user's account"""
     pw_hash = bcrypt.generate_password_hash(
-        request.form.get('password')).decode('utf-8')
+        request.json.get('password')).decode('utf-8')
 
     try:
-        if mongo.db.users.find_one({"email": request.form.get('email')}):
+        if mongo.db.users.find_one({"email": request.json.get('email')}):
             return "Account already exists", 409
-        user_data = {"full_name": request.form.get(
-            'full_name'), "email": request.form.get('email'), "password": pw_hash}
+        user_data = {"full_name": request.json.get(
+            'full_name'), "email": request.json.get('email'), "password": pw_hash}
 
         inserted_id = mongo.db.users.insert_one(user_data)
     except Exception as e:

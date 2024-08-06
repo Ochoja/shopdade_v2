@@ -2,15 +2,19 @@
 import { RouterLink, useRoute } from 'vue-router'
 import Button from '@/components/TheButton.vue'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
+import axios from 'axios'
 
 const route = useRoute()
 const current_path = computed(() => route.path)
 const isLogin = ref(true)
 const isSignUp = ref(false)
+const isLoading = ref(false)
 
 /* Sign Up Logic */
 const password = ref('')
 const confirm_password = ref('')
+const full_name = ref('')
+const email = ref('')
 const matching_pw = ref(true)
 
 watchEffect(() => {
@@ -20,6 +24,23 @@ watchEffect(() => {
     matching_pw.value = true
   }
 })
+
+async function signUp() {
+  if (matching_pw.value) {
+    try {
+      isLoading.value = true
+      const response = await axios.post('http://127.0.0.1:5000/api/sign_up/', {
+        full_name: full_name.value,
+        email: email.value,
+        password: password.value
+      })
+      isLoading.value = false
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 /* End Sign Up Logic */
 
 /* Route and Form Logic */
@@ -48,13 +69,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="grid md:grid-cols-auth min-h-[98vh]">
-    <div class="md:rounded-3xl bg-white pt-6">
-      <div class="text-center mb-14">
+  <main class="grid md:grid-cols-auth min-h-[80vh]">
+    <div class="md:rounded-3xl bg-white">
+      <div class="text-center mb-14 pt-6">
         <RouterLink to="/" class="font-logo text-primary text-2xl">shopDADE</RouterLink>
       </div>
 
-      <form v-if="isLogin">
+      <form v-if="isLogin" @submit.prevent="login">
         <div class="form-title">
           <h2 class="font-semibold">Sign In</h2>
           <p class="font-light">Welcome Back! Please enter your details.</p>
@@ -82,7 +103,7 @@ onMounted(() => {
         </p>
       </form>
 
-      <form v-if="isSignUp">
+      <form v-if="isSignUp" @submit.prevent="signUp">
         <div class="form-title">
           <h2 class="font-semibold">Create an Account</h2>
           <p class="font-light">Welcome Back! Please enter your details.</p>
@@ -90,12 +111,12 @@ onMounted(() => {
 
         <div>
           <label for="name">Full Name*</label>
-          <input type="text" id="name" placeholder="John Doe" required />
+          <input v-model="full_name" type="text" id="name" placeholder="John Doe" required />
         </div>
 
         <div>
           <label for="email">Email*</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
+          <input v-model="email" type="email" id="email" placeholder="Enter your email" required />
         </div>
 
         <div>
@@ -123,7 +144,10 @@ onMounted(() => {
           Passwords do not match
         </div>
 
-        <Button size="large" class="w-[100%] mt-5">Create Account</Button>
+        <Button size="large" class="w-[100%] mt-5">
+          <span v-if="isLoading">Loading....</span>
+          <span v-else>Create Account</span>
+        </Button>
         <p class="font-light mt-2 text-center text-[1.1rem]">
           Already have an account?
           <RouterLink to="/auth/login" class="font-bold text-primary">Sign In</RouterLink>
@@ -139,7 +163,7 @@ onMounted(() => {
 
 <style lang="postcss" scoped>
 form {
-  @apply w-[60%] m-auto mb-24;
+  @apply w-[75%] lg:w-[60%] m-auto mb-24;
 }
 
 .form-title {

@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from dotenv import load_dotenv
 from api.products import product
 from api.extensions import mongo
@@ -23,6 +24,7 @@ def create_app():
     mongo.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
+    CORS(app)
 
     # blueprints
     app.register_blueprint(product, url_prefix="/api")
