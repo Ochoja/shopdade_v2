@@ -32,9 +32,9 @@ def login():
     try:
         # check if user exists
         user = mongo.db.users.find_one_or_404(
-            {"email": request.form.get("email")})
+            {"email": request.json.get("email")})
         # Check if passwords match
-        check_pw = bcrypt.check_password_hash(user.get("password"), request.form.get(
+        check_pw = bcrypt.check_password_hash(user.get("password"), request.json.get(
             "password"))
 
         if check_pw:
