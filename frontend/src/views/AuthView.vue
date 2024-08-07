@@ -50,6 +50,26 @@ async function signUp() {
 }
 /* End Sign Up Logic */
 
+/* Sign In Logic */
+const userEmail = ref('')
+const userPassword = ref('')
+
+async function login() {
+  try {
+    isLoading.value = true
+    const response = await axios.post('http://127.0.0.1:5000/api/login/', {
+      email: userEmail.value,
+      password: userPassword.value
+    })
+    isLoading.value = false
+    console.log(response)
+  } catch (error) {
+    isLoading.value = false
+    console.error(error)
+  }
+}
+/* End Sign In Logic */
+
 /* Route and Form Logic */
 // Change Login and signup form depending on route
 watch(current_path, () => {
@@ -90,12 +110,24 @@ onMounted(() => {
 
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            v-model="userEmail"
+            required
+          />
         </div>
 
         <div>
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            v-model="userPassword"
+            required
+          />
         </div>
         <div class="text-right relative top-[-10px]">
           <RouterLink to="/" class="font-semibold text-primary text-sm"
@@ -103,7 +135,10 @@ onMounted(() => {
           >
         </div>
 
-        <Button size="large" class="w-[100%] mt-5">Login</Button>
+        <Button size="large" class="w-[100%] mt-5">
+          <span v-if="isLoading" class="2xl"><Icon icon="eos-icons:bubble-loading" /></span>
+          <span v-else>Login</span>
+        </Button>
         <p class="font-light mt-2 text-center text-[1.1rem]">
           Don't have an account?
           <RouterLink to="/auth/sign-up" class="font-bold text-primary">Sign Up</RouterLink>
