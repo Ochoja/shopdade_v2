@@ -9,6 +9,7 @@ const route = useRoute()
 const current_path = computed(() => route.path)
 const isLogin = ref(true)
 const isSignUp = ref(false)
+const isSignUpSuccess = ref(false)
 const isLoading = ref(false)
 
 /* Sign Up Logic */
@@ -37,6 +38,8 @@ async function signUp() {
         password: password.value
       })
       isLoading.value = false // remove loading icon
+      isSignUp.value = false // hide sign up form on success
+      isSignUpSuccess.value = true // Show sign up successful message
       console.log(response.data)
     } catch (error) {
       isLoading.value = false // remove loading icon
@@ -158,6 +161,26 @@ onMounted(() => {
           <RouterLink to="/auth/login" class="font-bold text-primary">Sign In</RouterLink>
         </p>
       </form>
+
+      <div v-if="isSignUpSuccess" class="w-[75%] lg:w-[70%] text-center mx-auto h-[75vh] mt-20">
+        <div class="flex justify-center mb-8">
+          <img src="../assets/images/tick.svg" alt="Success photo" class="h-[7rem]" />
+        </div>
+
+        <div class="mb-8">
+          <h2>Account Created Successfully</h2>
+          <p>
+            Congratulations! You have successfully created an account. Click on the login button
+            below to login to your account
+          </p>
+        </div>
+
+        <div>
+          <Button @click="isSignUpSuccess = false" size="large" to="/auth/login" class="w-[100%]"
+            >Login</Button
+          >
+        </div>
+      </div>
     </div>
 
     <!-- Image on the right -->

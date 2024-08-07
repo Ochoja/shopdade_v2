@@ -1,12 +1,22 @@
 <script setup>
 import { Icon } from '@iconify/vue/dist/iconify.js'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   size: String,
   type: String,
-  icon: String
+  icon: String,
+  to: String
 })
 
+const router = useRouter()
+
+// Go to route based on route props
+function goToRoute() {
+  router.push(props.to)
+}
+
+// Apply right class to button based on props
 const btnClass = () => {
   if (props.type && props.size) {
     return `${props.type} ${props.size}`
@@ -21,7 +31,7 @@ const btnClass = () => {
 </script>
 
 <template>
-  <button :class="btnClass()">
+  <button :class="btnClass()" @click="goToRoute()">
     <Icon v-if="props.icon" :icon="props.icon"></Icon>
     <slot></slot>
   </button>
