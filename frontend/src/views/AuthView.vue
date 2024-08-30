@@ -32,11 +32,15 @@ async function signUp() {
   if (matching_pw.value) {
     try {
       isLoading.value = true // show loading icon
-      const response = await axios.post('http://127.0.0.1:5000/api/sign_up/', {
-        full_name: full_name.value,
-        email: email.value,
-        password: password.value
-      })
+      const response = await axios.post(
+        'http://127.0.0.1:5000/api/sign_up/',
+        {
+          full_name: full_name.value,
+          email: email.value,
+          password: password.value
+        },
+        { withCredentials: true }
+      )
       isLoading.value = false // remove loading icon
       isSignUp.value = false // hide sign up form on success
       isSignUpSuccess.value = true // Show sign up successful message
@@ -53,19 +57,26 @@ async function signUp() {
 /* Sign In Logic */
 const userEmail = ref('')
 const userPassword = ref('')
+const signInError = ref('')
 
 async function login() {
   try {
     isLoading.value = true
-    const response = await axios.post('http://127.0.0.1:5000/api/login/', {
-      email: userEmail.value,
-      password: userPassword.value
-    })
-    isLoading.value = false
+    const response = await axios.post(
+      'http://127.0.0.1:5000/api/login/',
+      {
+        email: userEmail.value,
+        password: userPassword.value
+      },
+      { withCredentials: true }
+    )
+    isLoading.value = false // remove loading icon
+    signInError.value = '' // remove errors if any
     console.log(response)
   } catch (error) {
-    isLoading.value = false
-    console.error(error)
+    isLoading.value = false // remove loading icon on button
+    console.log(error)
+    signInError.value = error.response.data // display error message returned by server
   }
 }
 /* End Sign In Logic */
@@ -139,6 +150,8 @@ onMounted(() => {
           <span v-if="isLoading" class="2xl"><Icon icon="eos-icons:bubble-loading" /></span>
           <span v-else>Login</span>
         </Button>
+        <p class="font-bold mt-2 text-center text-[1.1rem] text-primary">{{ signInError }}</p>
+
         <p class="font-light mt-2 text-center text-[1.1rem]">
           Don't have an account?
           <RouterLink to="/auth/sign-up" class="font-bold text-primary">Sign Up</RouterLink>

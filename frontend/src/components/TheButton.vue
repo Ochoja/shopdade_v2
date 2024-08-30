@@ -13,7 +13,10 @@ const router = useRouter()
 
 // Go to route based on route props
 function goToRoute() {
-  router.push(props.to)
+  if (props.to) {
+    router.push(props.to)
+  }
+  return
 }
 
 // Apply right class to button based on props

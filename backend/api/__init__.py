@@ -21,10 +21,13 @@ def create_app():
     app = Flask(__name__)
     app.config["MONGO_URI"] = os.getenv("mongo_uri")
     app.config["JWT_SECRET_KEY"] = os.getenv("jwt_secret_key")
+    app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+    app.config['JWT_COOKIE_SAMESITE'] = 'None'
+    app.config['JWT_COOKIE_SECURE'] = True
     mongo.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     # blueprints
     app.register_blueprint(product, url_prefix="/api")
