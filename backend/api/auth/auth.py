@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from api.extensions import mongo
 from api.extensions import bcrypt
-from flask_jwt_extended import create_access_token, set_access_cookies
+from flask_jwt_extended import create_access_token
 
 
 auth = Blueprint("auth", __name__)
@@ -40,7 +40,6 @@ def login():
         if check_pw:
             access_token = create_access_token(identity=user.get("email"))
             response = make_response("Login Successful")
-            set_access_cookies(response, access_token)
             return response
         else:
             return "Incorrect Email or Password", 401
