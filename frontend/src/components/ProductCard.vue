@@ -8,12 +8,12 @@ defineProps({
 
 <template>
   <RouterLink
-    :to="`/product/${product.id}`"
+    :to="`/product/${product._id}`"
     class="rounded-lg text-sm cursor-pointer m-auto w-[100%]"
   >
     <div class="relative w-[100%] pt-[100%]">
       <img
-        :src="product.img"
+        :src="product.images[0]"
         class="w-[100%] h-[100%] absolute top-0 left-0 rounded-md object-cover"
       />
     </div>

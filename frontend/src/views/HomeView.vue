@@ -2,6 +2,33 @@
 import Button from '../components/TheButton.vue'
 import Card from '../components/ProductCard.vue'
 import { RouterLink } from 'vue-router'
+
+const products = [
+  {
+    _id: "ObjectId('669684a9b3c0c84813a5bb92')",
+    name: 'Navy Blue Slim Fit Suit',
+    description:
+      "Elevate your elegance with this navy blue suit. Tailored to perfection, it's ideal for weddings, business meetings, or any special event.",
+    price: 299.99,
+    category: 'Suit',
+    sizes: ['36R', '38R', '40R', '42R'],
+    uom: 'US',
+    images: ['https://dorsetsuits.co.nz/wp-content/uploads/2022/08/FT5-Product-Image2.jpg'],
+    quantity: 15
+  },
+  {
+    _id: "ObjectId('669684a9b3c0c84813a5bb92')",
+    name: 'Navy Blue Slim Fit Suit',
+    description:
+      "Elevate your elegance with this navy blue suit. Tailored to perfection, it's ideal for weddings, business meetings, or any special event.",
+    price: 299.99,
+    category: 'Suit',
+    sizes: ['36R', '38R', '40R', '42R'],
+    uom: 'US',
+    images: ['https://dorsetsuits.co.nz/wp-content/uploads/2022/08/FT5-Product-Image2.jpg'],
+    quantity: 15
+  }
+]
 </script>
 
 <template>
@@ -29,14 +56,7 @@ import { RouterLink } from 'vue-router'
       </div>
 
       <div class="product-grid">
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <Card v-for="(product, index) in products" :key="index" :product="product"></Card>
       </div>
 
       <div class="text-center mt-8">
